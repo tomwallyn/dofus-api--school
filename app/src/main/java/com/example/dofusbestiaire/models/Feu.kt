@@ -1,4 +1,4 @@
-package com.example.appnico.models
+package com.example.dofusbestiaire.models
 
 data class Feu(
     val max: Any,

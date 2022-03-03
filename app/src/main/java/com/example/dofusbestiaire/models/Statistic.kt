@@ -1,4 +1,7 @@
-package com.example.appnico.models
+package com.example.dofusbestiaire.models
+
+import com.example.dofusbestiaire.models.PM
+import com.example.dofusbestiaire.models.PV
 
 data class Statistic(
     val PA: PA,
