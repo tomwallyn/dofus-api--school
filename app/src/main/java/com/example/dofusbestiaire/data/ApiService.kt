@@ -1,6 +1,6 @@
-package com.example.appnico.data
+package com.example.dofusbestiaire.data
 
-import com.example.appnico.models.Monsters
+import com.example.dofusbestiaire.models.Monsters
 import retrofit2.Response
 import retrofit2.http.*
 
