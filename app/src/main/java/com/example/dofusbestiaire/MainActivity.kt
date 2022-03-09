@@ -1,16 +1,14 @@
 package com.example.dofusbestiaire
 
-import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.TypedValue
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.cardview.widget.CardView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.example.dofusbestiaire.data.ApiService
+import android.widget.Toast
+import com.example.dofusbestiaire.data.ApiClient
+import com.example.dofusbestiaire.models.Monsters
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.yield
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +17,40 @@ class MainActivity : AppCompatActivity() {
         val container = findViewById<LinearLayout>(R.id.container)
         container.removeAllViews()
         val xmlCreator = XMLCreator()
-        container.addView(xmlCreator.createXMLCard(this,"https://s.ankama.com/www/static.ankama.com/dofus/www/game/items/200/18006.png","romain"))
+        val allMonsters = callApi()
+        for (monster in allMonsters){
+            container.addView(xmlCreator.createXMLCard(this,monster.imgUrl,monster.name))
+        }
+    }
+    fun callApi(): List<Monsters> {
+        var content = listOf<Monsters>()
+        runBlocking {
+            launch {
+                try {
+                    val response = ApiClient.apiService.getMonsters()
+
+                    if (response.isSuccessful && response.body() != null) {
+                        content = response.body()!!
+//do something
+                    } else {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Error Occurred: ${response.message()}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Error Occurred: ${e.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+            return@runBlocking content
+        }
+        return content
     }
 
 
