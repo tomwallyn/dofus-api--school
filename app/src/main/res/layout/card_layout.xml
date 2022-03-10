@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardContainer"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="#ff5cff"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp"
+    app:contentPadding="4dp"
+    >
 
-    <ImageView
-        android:id="@+id/cardImage"
-        android:layout_width="128dp"
-        android:layout_height="122dp"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout"
+        android:padding="16dp">
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/cardImage"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
 
-    <TextView
-        android:id="@+id/cardText"
-        android:layout_width="227dp"
-        android:layout_height="117dp"
-        android:text="TextView" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/cardText"
+            android:layout_width="236dp"
+            android:layout_height="39dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintLeft_toRightOf="@+id/cardImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

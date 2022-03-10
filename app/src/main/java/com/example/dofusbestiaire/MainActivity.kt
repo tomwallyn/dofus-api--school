@@ -4,23 +4,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.dofusbestiaire.data.ApiClient
 import com.example.dofusbestiaire.models.Monsters
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.yield
 
 class MainActivity : AppCompatActivity() {
+    lateinit var recyclerViewCreator: RecyclerViewCreator
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.homepage)
-        val container = findViewById<LinearLayout>(R.id.container)
-        container.removeAllViews()
-        val xmlCreator = XMLCreator()
         val allMonsters = callApi()
-        for (monster in allMonsters){
-            container.addView(xmlCreator.createXMLCard(this,monster.imgUrl,monster.name))
-        }
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewMonster)
+        recyclerViewCreator= RecyclerViewCreator(allMonsters,this)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = recyclerViewCreator
+
     }
     fun callApi(): List<Monsters> {
         var content = listOf<Monsters>()
