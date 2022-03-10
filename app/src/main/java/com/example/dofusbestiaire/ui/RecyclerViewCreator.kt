@@ -1,15 +1,15 @@
-package com.example.dofusbestiaire
+package com.example.dofusbestiaire.ui
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.dofusbestiaire.R
 import com.example.dofusbestiaire.models.Monsters
 
 class RecyclerViewCreator(private val monstersSet: List<Monsters>, val context:Context): RecyclerView.Adapter<RecyclerViewCreator.ViewHolder>()  {
