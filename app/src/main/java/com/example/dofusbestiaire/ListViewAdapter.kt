@@ -1,6 +1,5 @@
 package com.example.dofusbestiaire
 
-import android.R
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,12 +8,15 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.dofusbestiaire.models.Monsters
+import com.example.dofusbestiaire.ui.RecyclerViewCardCreator
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ListViewAdapter(context: Context?, allMonsters: List<Monsters>) : BaseAdapter() {
-    var mContext: Context? = context
+class ListViewAdapter(context: Context, allMonsters: List<Monsters>,
+                      private var recyclerViewCardCreator: RecyclerViewCardCreator
+) : BaseAdapter() {
+    private var mContext: Context = context
     var inflater: LayoutInflater? = LayoutInflater.from(mContext)
     private var monstersNameList: MutableList<Monsters> = allMonsters as MutableList<Monsters>
     private var arraylist: ArrayList<Monsters>? = ArrayList(allMonsters)
@@ -57,13 +59,17 @@ class ListViewAdapter(context: Context?, allMonsters: List<Monsters>) : BaseAdap
     fun filter(charText: String) {
         var charText = charText
         charText = charText.lowercase(Locale.getDefault())
-        monstersNameList!!.clear()
-        if (charText.length == 0) {
-            monstersNameList!!.addAll(arraylist!!)
+        monstersNameList.clear()
+        if (charText.isEmpty()) {
+            monstersNameList.addAll(arraylist!!)
+            recyclerViewCardCreator = RecyclerViewCardCreator(monstersNameList, mContext)
         } else {
             for (wp in arraylist!!) {
                 if (wp.name.lowercase(Locale.getDefault()).contains(charText)) {
-                    monstersNameList!!.add(wp)
+                    monstersNameList.add(wp)
+                    recyclerViewCardCreator = RecyclerViewCardCreator(monstersNameList, mContext)
+                }else{
+                    recyclerViewCardCreator = RecyclerViewCardCreator(emptyList(), mContext)
                 }
             }
         }

@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.dofusbestiaire.R
 import com.example.dofusbestiaire.models.Monsters
 
-class RecyclerViewCreator(private val monstersSet: List<Monsters>, val context:Context): RecyclerView.Adapter<RecyclerViewCreator.ViewHolder>()  {
+class RecyclerViewCardCreator(private val monstersSet: List<Monsters>, val context:Context): RecyclerView.Adapter<RecyclerViewCardCreator.ViewHolder>()  {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cardView: CardView
         val imageView: ImageView
