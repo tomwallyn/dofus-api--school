@@ -6,11 +6,15 @@
         <entry key="..\:/Users/Romain/Desktop/B3/ATELIER DEVELOPPEMENT MOBILE/dofusKotlin/app/src/main/res/layout/activity_main.xml" value="0.14629629629629629" />
         <entry key="..\:/Users/Romain/Desktop/B3/ATELIER DEVELOPPEMENT MOBILE/dofusKotlin/app/src/main/res/layout/all_monsters_layout.xml" value="0.25" />
         <entry key="..\:/Users/Romain/Desktop/B3/ATELIER DEVELOPPEMENT MOBILE/dofusKotlin/app/src/main/res/layout/card.xml" value="0.18802083333333333" />
-        <entry key="..\:/Users/Romain/Desktop/B3/ATELIER DEVELOPPEMENT MOBILE/dofusKotlin/app/src/main/res/layout/card_layout.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/Romain/Desktop/B3/ATELIER DEVELOPPEMENT MOBILE/dofusKotlin/app/src/main/res/layout/card_layout.xml" value="0.33" />
         <entry key="..\:/Users/Romain/Desktop/B3/ATELIER DEVELOPPEMENT MOBILE/dofusKotlin/app/src/main/res/layout/homepage.xml" value="0.1" />
         <entry key="..\:/Users/Romain/Desktop/B3/ATELIER DEVELOPPEMENT MOBILE/dofusKotlin/app/src/main/res/layout/listview_item.xml" value="0.1" />
+        <entry key="..\:/Users/Romain/Desktop/B3/ATELIER DEVELOPPEMENT MOBILE/dofusKotlin/app/src/main/res/layout/one_monster_layout.xml" value="0.19581017528858485" />
         <entry key="..\:/Users/Romain/Desktop/B3/ATELIER DEVELOPPEMENT MOBILE/dofusKotlin/app/src/main/res/layout/search_bar.xml" value="0.1" />
         <entry key="..\:/Users/Romain/Desktop/B3/ATELIER DEVELOPPEMENT MOBILE/dofusKotlin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1325" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.18177083333333333" />
       </map>
     </option>
   </component>
