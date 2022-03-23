@@ -25,4 +25,5 @@
             >
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
+    <include layout='@layout/bottom_navigation'/>
 </ScrollView>

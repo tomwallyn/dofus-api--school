@@ -1,5 +1,6 @@
 package com.example.dofusbestiaire
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.SearchView
 import android.widget.Toast
@@ -9,12 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dofusbestiaire.data.ApiClient
 import com.example.dofusbestiaire.models.Monsters
 import com.example.dofusbestiaire.ui.RecyclerViewCardCreator
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
+class MainActivity : AppCompatActivity(),SearchView.OnQueryTextListener{
     lateinit var recyclerViewCardCreator: RecyclerViewCardCreator
     lateinit var adapter: ListViewAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.all_monsters_layout)
@@ -23,6 +26,19 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
         adapter = ListViewAdapter(this, allMonsters, recyclerViewCardCreator)
         val editsearch = findViewById<SearchView>(R.id.search);
         editsearch.setOnQueryTextListener(this)
+        var bottomViewNavigation = findViewById<BottomNavigationView>(R.id.activity_main_bottom_navigation)
+        val bottomViewController = BottomViewController(bottomViewNavigation,this)
+    }
+
+
+    fun changeActivity(pageName:String){
+        when(pageName){
+            "other" -> {
+                intent = Intent(this, OtherPage::class.java)
+                startActivity(intent)
+            }
+        }
+
     }
 
     fun recycler(allMonsters:List<Monsters>){
@@ -40,7 +56,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
 
                     if (response.isSuccessful && response.body() != null) {
                         content = response.body()!!
-//do something
+
                     } else {
                         Toast.makeText(
                             this@MainActivity,

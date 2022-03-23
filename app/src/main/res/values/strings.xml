@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DofusBestiaire</string>
+    <string name="bottom_navigation_menu_home">Accueil</string>
 </resources>
