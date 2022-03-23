@@ -11,6 +11,9 @@
         <entry key="..\:/Users/Romain/Desktop/B3/ATELIER DEVELOPPEMENT MOBILE/dofusKotlin/app/src/main/res/layout/listview_item.xml" value="0.1" />
         <entry key="..\:/Users/Romain/Desktop/B3/ATELIER DEVELOPPEMENT MOBILE/dofusKotlin/app/src/main/res/layout/search_bar.xml" value="0.1" />
         <entry key="..\:/Users/Romain/Desktop/B3/ATELIER DEVELOPPEMENT MOBILE/dofusKotlin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1325" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.18177083333333333" />
       </map>
     </option>
   </component>
