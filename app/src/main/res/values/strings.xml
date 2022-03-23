@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">DofusBestiaire</string>
+    <string name="app_name">Dofus Bestiaire</string>
+    <string name="todo">MyApp</string>
 </resources>
