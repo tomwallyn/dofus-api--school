@@ -76,10 +76,13 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
     private fun updateMainFragment(integer: Int): Boolean {
         when (integer) {
            R.id.home -> {
-               val intent = Intent(this, SplashScreen::class.java)
-               startActivity(intent)
-               this.finish()
+
            }
+            R.id.filters ->{
+                val intent = Intent(this, SplashScreen::class.java)
+                startActivity(intent)
+                this.finish()
+            }
 
 
         }
