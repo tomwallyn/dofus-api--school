@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DofusBestiaire">
         <activity
-            android:name=".SplashScreen"
+            android:name=".activities.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.AllMonstersActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

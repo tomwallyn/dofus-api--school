@@ -1,4 +1,4 @@
-package com.example.dofusbestiaire
+package com.example.dofusbestiaire.components
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import com.example.dofusbestiaire.R
 import com.example.dofusbestiaire.models.Monsters
 import com.example.dofusbestiaire.ui.RecyclerViewCardCreator
 import java.util.*
@@ -44,8 +45,8 @@ class ListViewAdapter(context: Context, allMonsters: List<Monsters>,
         if (view == null) {
             holder = ViewHolder()
             view = LayoutInflater.from(mContext)
-                .inflate(com.example.dofusbestiaire.R.layout.listview_item, null)
-            holder.name = view.findViewById<TextView>(com.example.dofusbestiaire.R.id.name);
+                .inflate(R.layout.listview_item, null)
+            holder.name = view.findViewById<TextView>(R.id.name);
             view.tag = holder
         } else {
             holder = view.tag as ViewHolder

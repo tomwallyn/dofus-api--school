@@ -1,12 +1,13 @@
-package com.example.dofusbestiaire
+package com.example.dofusbestiaire.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.example.dofusbestiaire.R
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 
-class SplashScreen : AppCompatActivity() {
+class SplashScreenActivity : AppCompatActivity() {
 
     private val SPLASH_DELAY: Long = 1000 //3 seconds
     private var mDelayHandler: Handler? = null
@@ -24,7 +25,7 @@ class SplashScreen : AppCompatActivity() {
 
 
     private fun launchMainActivity() {
-        var intent = Intent(this, MainActivity::class.java)
+        var intent = Intent(this, AllMonstersActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
         this.finish()
