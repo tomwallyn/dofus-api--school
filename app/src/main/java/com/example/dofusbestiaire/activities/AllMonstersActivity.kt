@@ -1,13 +1,14 @@
-package com.example.dofusbestiaire
+package com.example.dofusbestiaire.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dofusbestiaire.R
+import com.example.dofusbestiaire.components.ListViewAdapter
 import com.example.dofusbestiaire.data.ApiClient
 import com.example.dofusbestiaire.models.Monsters
 import com.example.dofusbestiaire.ui.RecyclerViewCardCreator
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 
-class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
+class AllMonstersActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
     lateinit var recyclerViewCardCreator: RecyclerViewCardCreator
     lateinit var adapter: ListViewAdapter
     lateinit var bottomNavigationView: BottomNavigationView
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
 //do something
                     } else {
                         Toast.makeText(
-                            this@MainActivity,
+                            this@AllMonstersActivity,
                             "Error Occurred: ${response.message()}",
                             Toast.LENGTH_LONG
                         ).show()
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
 
                 } catch (e: Exception) {
                     Toast.makeText(
-                        this@MainActivity,
+                        this@AllMonstersActivity,
                         "Error Occurred: ${e.message}",
                         Toast.LENGTH_LONG
                     ).show()
@@ -79,7 +80,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
 
            }
             R.id.filters ->{
-                val intent = Intent(this, SplashScreen::class.java)
+                val intent = Intent(this, SplashScreenActivity::class.java)
                 startActivity(intent)
                 this.finish()
             }

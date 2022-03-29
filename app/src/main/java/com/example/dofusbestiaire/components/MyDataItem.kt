@@ -1,4 +1,4 @@
-package com.example.dofusbestiaire
+package com.example.dofusbestiaire.components
 
 data class MyDataItem(
     val body: String,
