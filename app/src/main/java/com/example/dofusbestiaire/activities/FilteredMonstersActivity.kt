@@ -2,39 +2,37 @@ package com.example.dofusbestiaire.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dofusbestiaire.R
-import com.example.dofusbestiaire.components.ListViewAdapter
 import com.example.dofusbestiaire.data.ApiClient
 import com.example.dofusbestiaire.models.Monsters
-import com.example.dofusbestiaire.ui.RecyclerViewCardCreator
+import com.example.dofusbestiaire.ui.RecyclerViewCardTypeCreator
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class FilteredMonstersActivity : AppCompatActivity(){
-    lateinit var recyclerViewCardCreator: RecyclerViewCardCreator
-    lateinit var adapter: ListViewAdapter
+    lateinit var recyclerViewCardTypeCreator: RecyclerViewCardTypeCreator
     lateinit var bottomNavigationView: BottomNavigationView
+    val allMonsters = callApi()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.filtered_monsters_layout)
-        val allMonsters = callApi()
-        recycler(allMonsters)
-        adapter = ListViewAdapter(this, allMonsters, recyclerViewCardCreator)
+        val allTypesAndImage = getAllTypes()
+        recycler(allTypesAndImage)
         bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation)
         this.configureBottomView()
     }
 
-    fun recycler(allMonsters:List<Monsters>){
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewMonster)
-        recyclerViewCardCreator= RecyclerViewCardCreator(allMonsters,this)
+    fun recycler(allTypes: MutableList<MutableList<String>>){
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewType)
+        recyclerViewCardTypeCreator= RecyclerViewCardTypeCreator(allTypes,this)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = recyclerViewCardCreator
+        recyclerView.adapter = recyclerViewCardTypeCreator
     }
     fun callApi(): List<Monsters> {
         var content = listOf<Monsters>()
@@ -65,6 +63,21 @@ class FilteredMonstersActivity : AppCompatActivity(){
             return@runBlocking content
         }
         return content
+    }
+
+    fun getAllTypes(): MutableList<MutableList<String>> {
+        var allTypesAndImage: MutableList<MutableList<String>> = mutableListOf()
+        var allTypes :MutableList<String> = mutableListOf()
+        var allImage : MutableList<String> = mutableListOf()
+        for (monster in allMonsters){
+            if(!allTypes.contains(monster.type)){
+                allTypes.add(monster.type)
+                allImage.add(monster.imgUrl)
+            }
+        }
+        allTypesAndImage.add(allTypes)
+        allTypesAndImage.add(allImage)
+        return allTypesAndImage
     }
 
     fun configureBottomView() {
