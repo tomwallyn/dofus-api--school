@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dofusbestiaire.R
 import com.example.dofusbestiaire.components.ListViewAdapter
 import com.example.dofusbestiaire.data.ApiClient
+import com.example.dofusbestiaire.data.FavoriteMonstersClient
 import com.example.dofusbestiaire.models.Monsters
 import com.example.dofusbestiaire.ui.RecyclerViewCardCreator
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -18,11 +19,19 @@ import kotlinx.coroutines.runBlocking
 
 
 class AllMonstersActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+
     lateinit var recyclerViewCardCreator: RecyclerViewCardCreator
     lateinit var adapter: ListViewAdapter
     lateinit var bottomNavigationView: BottomNavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+//// example d'utilisation du FavoriteMonstersClient
+//        var favoriteMonstersClient = FavoriteMonstersClient(this)
+//        favoriteMonstersClient.saveFavoriteMonster(100)
+//        favoriteMonstersClient.deleteFavoriteMonster(100)
+//        var test = favoriteMonstersClient.getFavoriteMonsters()
+
         setContentView(R.layout.all_monsters_layout)
         val allMonsters = callApi()
         recycler(allMonsters)
