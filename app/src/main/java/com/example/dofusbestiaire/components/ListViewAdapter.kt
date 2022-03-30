@@ -56,24 +56,21 @@ class ListViewAdapter(context: Context, allMonsters: List<Monsters>,
         return view
     }
 
-    // Filter Class
-    fun filter(charText: String) {
+    fun returnFilteredList(charText: String): MutableList<Monsters> {
         var charText = charText
         charText = charText.lowercase(Locale.getDefault())
         monstersNameList.clear()
-        if (charText.isEmpty()) {
+        return if (charText.isEmpty()) {
             monstersNameList.addAll(arraylist!!)
-            recyclerViewCardCreator = RecyclerViewCardCreator(monstersNameList, mContext)
+            monstersNameList
         } else {
             for (wp in arraylist!!) {
                 if (wp.name.lowercase(Locale.getDefault()).contains(charText)) {
                     monstersNameList.add(wp)
-                    recyclerViewCardCreator = RecyclerViewCardCreator(monstersNameList, mContext)
-                }else{
-                    recyclerViewCardCreator = RecyclerViewCardCreator(emptyList(), mContext)
                 }
             }
+            monstersNameList
         }
-        notifyDataSetChanged()
     }
+
 }

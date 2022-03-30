@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 
-class AllMonstersActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
+class AllMonstersActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     lateinit var recyclerViewCardCreator: RecyclerViewCardCreator
     lateinit var adapter: ListViewAdapter
     lateinit var bottomNavigationView: BottomNavigationView
@@ -70,17 +70,19 @@ class AllMonstersActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
         return content
     }
 
-    private fun configureBottomView() {
+    fun configureBottomView() {
         bottomNavigationView.setOnItemReselectedListener { item -> updateMainFragment(item.itemId) }
     }
 
-    private fun updateMainFragment(integer: Int): Boolean {
+    fun updateMainFragment(integer: Int): Boolean {
         when (integer) {
            R.id.home -> {
-
+               val intent = Intent(this, AllMonstersActivity::class.java)
+               startActivity(intent)
+               this.finish()
            }
             R.id.filters ->{
-                val intent = Intent(this, SplashScreenActivity::class.java)
+                val intent = Intent(this, FilteredMonstersActivity::class.java)
                 startActivity(intent)
                 this.finish()
             }
@@ -96,11 +98,12 @@ class AllMonstersActivity : AppCompatActivity(), SearchView.OnQueryTextListener{
 
     override fun onQueryTextChange(p0: String?): Boolean {
         val text = p0
-        if (text != null) {
-            adapter.filter(text)
+        if (text !=null){
+            recycler(adapter.returnFilteredList(text))
         }
-        return false
+        return true
     }
+
 
 
 }
