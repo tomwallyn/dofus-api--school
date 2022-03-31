@@ -88,11 +88,13 @@ class AllMonstersActivity : AppCompatActivity(), SearchView.OnQueryTextListener 
            R.id.home -> {
                val intent = Intent(this, AllMonstersActivity::class.java)
                startActivity(intent)
+               this.overridePendingTransition(0, 0);
                this.finish()
            }
             R.id.filters ->{
                 val intent = Intent(this, FilteredMonstersActivity::class.java)
                 startActivity(intent)
+                this.overridePendingTransition(0, 0);
                 this.finish()
             }
 
