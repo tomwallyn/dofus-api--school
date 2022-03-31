@@ -29,7 +29,7 @@ class RecyclerViewCardTypeCreator(private val typesSet: MutableList<MutableList<
     }
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.card_layout, viewGroup, false)
+            .inflate(R.layout.card_layout_family, viewGroup, false)
 
         return ViewHolder(view)
     }
@@ -41,6 +41,7 @@ class RecyclerViewCardTypeCreator(private val typesSet: MutableList<MutableList<
             val intent = Intent(context, SameTypesMonstersActivity::class.java)
             intent.putExtra("type",typesSet[0][position])
             context.startActivity(intent)
+
         }
 
     }
