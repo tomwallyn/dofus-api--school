@@ -9,31 +9,35 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dofusbestiaire.R
 import com.example.dofusbestiaire.data.ApiClient
 import com.example.dofusbestiaire.models.Monsters
-import com.example.dofusbestiaire.ui.RecyclerViewCardTypeCreator
+import com.example.dofusbestiaire.ui.RecyclerViewCardCreator
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class FilteredMonstersActivity : AppCompatActivity(){
-    lateinit var recyclerViewCardTypeCreator: RecyclerViewCardTypeCreator
+class SameTypesMonstersActivity() : AppCompatActivity() {
+
+
+    lateinit var recyclerViewCardCreator: RecyclerViewCardCreator
     lateinit var bottomNavigationView: BottomNavigationView
     val allMonsters = callApi()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.filtered_monsters_layout)
-        val allTypesAndImage = getAllTypes()
-        recycler(allTypesAndImage)
+        val intent = this.intent
+        val type = intent.getStringExtra("type")
+        setContentView(R.layout.family_layout)
+        val allMonstersInTheFamily = allMonsters.filter { monsters: Monsters -> monsters.type == type  }
+        recycler(allMonstersInTheFamily)
         bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation)
         this.configureBottomView()
     }
 
-    fun recycler(allTypes: MutableList<MutableList<String>>){
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewType)
-        recyclerViewCardTypeCreator= RecyclerViewCardTypeCreator(allTypes,this)
+    fun recycler(allMonstersInTheFamily: List<Monsters>) {
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewMonster)
+        recyclerViewCardCreator = RecyclerViewCardCreator(allMonstersInTheFamily, this)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = recyclerViewCardTypeCreator
+        recyclerView.adapter = recyclerViewCardCreator
     }
+
     fun callApi(): List<Monsters> {
         var content = listOf<Monsters>()
         runBlocking {
@@ -46,7 +50,7 @@ class FilteredMonstersActivity : AppCompatActivity(){
 //do something
                     } else {
                         Toast.makeText(
-                            this@FilteredMonstersActivity,
+                            this@SameTypesMonstersActivity,
                             "Error Occurred: ${response.message()}",
                             Toast.LENGTH_LONG
                         ).show()
@@ -54,7 +58,7 @@ class FilteredMonstersActivity : AppCompatActivity(){
 
                 } catch (e: Exception) {
                     Toast.makeText(
-                        this@FilteredMonstersActivity,
+                        this@SameTypesMonstersActivity,
                         "Error Occurred: ${e.message}",
                         Toast.LENGTH_LONG
                     ).show()
@@ -67,10 +71,10 @@ class FilteredMonstersActivity : AppCompatActivity(){
 
     fun getAllTypes(): MutableList<MutableList<String>> {
         var allTypesAndImage: MutableList<MutableList<String>> = mutableListOf()
-        var allTypes :MutableList<String> = mutableListOf()
-        var allImage : MutableList<String> = mutableListOf()
-        for (monster in allMonsters){
-            if(!allTypes.contains(monster.type)){
+        var allTypes: MutableList<String> = mutableListOf()
+        var allImage: MutableList<String> = mutableListOf()
+        for (monster in allMonsters) {
+            if (!allTypes.contains(monster.type)) {
                 allTypes.add(monster.type)
                 allImage.add(monster.imgUrl)
             }
@@ -91,7 +95,7 @@ class FilteredMonstersActivity : AppCompatActivity(){
                 startActivity(intent)
                 this.finish()
             }
-            R.id.filters ->{
+            R.id.filters -> {
                 val intent = Intent(this, FilteredMonstersActivity::class.java)
                 startActivity(intent)
                 this.finish()

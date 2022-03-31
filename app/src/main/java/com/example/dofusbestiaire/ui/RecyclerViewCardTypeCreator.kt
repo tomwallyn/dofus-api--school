@@ -1,6 +1,8 @@
 package com.example.dofusbestiaire.ui
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dofusbestiaire.R
+import com.example.dofusbestiaire.activities.AllMonstersActivity
+import com.example.dofusbestiaire.activities.SameTypesMonstersActivity
 
 class RecyclerViewCardTypeCreator(private val typesSet: MutableList<MutableList<String>>, val context:Context): RecyclerView.Adapter<RecyclerViewCardTypeCreator.ViewHolder>()  {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -33,6 +37,11 @@ class RecyclerViewCardTypeCreator(private val typesSet: MutableList<MutableList<
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         Glide.with(context).load(typesSet[1][position]).into(viewHolder.imageView)
         viewHolder.textView.text = typesSet[0][position]
+        viewHolder.cardView.setOnClickListener{
+            val intent = Intent(context, SameTypesMonstersActivity::class.java)
+            intent.putExtra("type",typesSet[0][position])
+            context.startActivity(intent)
+        }
 
     }
 
