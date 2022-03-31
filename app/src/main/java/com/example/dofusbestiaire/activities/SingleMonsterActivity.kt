@@ -85,6 +85,12 @@ class SingleMonsterActivity() : AppCompatActivity() {
 
     fun updateMainFragment(integer: Int): Boolean {
         when (integer) {
+            R.id.favorite -> {
+                val intent = Intent(this, FavoriteMonstersActivity::class.java)
+                startActivity(intent)
+                this.overridePendingTransition(0, 0);
+                this.finish()
+            }
             R.id.home -> {
                 val intent = Intent(this, AllMonstersActivity::class.java)
                 startActivity(intent)
