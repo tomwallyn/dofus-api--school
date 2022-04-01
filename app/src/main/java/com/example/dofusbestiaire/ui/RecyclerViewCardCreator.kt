@@ -42,7 +42,7 @@ class RecyclerViewCardCreator(private val monstersSet: List<Monsters>, val conte
         val favoriteMonstersClient = FavoriteMonstersClient(context)
 
         Glide.with(context).load(image).into(viewHolder.imageView)
-        viewHolder.textView.text = monstersSet[position].name
+        viewHolder.textView.text = monstersSet[position].name;
 
         viewHolder.cardView.button.setOnClickListener{
             val monsterId = monstersSet[position]._id
