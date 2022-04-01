@@ -95,7 +95,7 @@ class FavoriteMonstersActivity : AppCompatActivity(), SearchView.OnQueryTextList
                 this.finish()
             }
            R.id.home -> {
-               val intent = Intent(this, FavoriteMonstersActivity::class.java)
+               val intent = Intent(this, AllMonstersActivity::class.java)
                startActivity(intent)
                this.overridePendingTransition(0, 0);
                this.finish()
