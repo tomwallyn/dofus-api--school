@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dofusbestiaire.R
@@ -29,18 +30,14 @@ class RecyclerViewCardCreator(private val monstersSet: List<Monsters>, val conte
         }
     }
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.card_layout, viewGroup, false)
 
         return ViewHolder(view)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
         val image = monstersSet[position].imgUrl
         val favoriteMonstersClient = FavoriteMonstersClient(context)
 
@@ -56,17 +53,24 @@ class RecyclerViewCardCreator(private val monstersSet: List<Monsters>, val conte
             else{
                 favoriteMonstersClient.deleteFavoriteMonster(monsterId)
             }
+            viewHolder.cardView.button.iconTint = if(isMonsterInFavorite(monstersSet[position]._id)) ContextCompat.getColorStateList(context, R.color.gold) else ContextCompat.getColorStateList(context, R.color.white)
+            viewHolder.cardView.button.backgroundTintList = if(isMonsterInFavorite(monstersSet[position]._id)) ContextCompat.getColorStateList(context, R.color.white) else ContextCompat.getColorStateList(context, R.color.gold)
         }
-
+        viewHolder.cardView.button.iconTint = if(isMonsterInFavorite(monstersSet[position]._id)) ContextCompat.getColorStateList(context, R.color.gold) else ContextCompat.getColorStateList(context, R.color.white)
+        viewHolder.cardView.button.backgroundTintList = if(isMonsterInFavorite(monstersSet[position]._id)) ContextCompat.getColorStateList(context, R.color.white) else ContextCompat.getColorStateList(context, R.color.gold)
         viewHolder.cardView.setOnClickListener{
             val intent = Intent(context, SingleMonsterActivity::class.java)
             intent.putExtra("id",monstersSet[position]._id)
             context.startActivity(intent)
-
         }
 
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = monstersSet.size
+
+    fun isMonsterInFavorite(id:Int):Boolean{
+        val favoriteMonstersClient = FavoriteMonstersClient(context)
+        val favoriteMonsters = favoriteMonstersClient.getFavoriteMonsters()
+        return favoriteMonsters.contains(id.toString())
+    }
 }
