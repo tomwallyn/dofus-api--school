@@ -13,7 +13,9 @@ import com.bumptech.glide.Glide
 import com.example.dofusbestiaire.R
 import com.example.dofusbestiaire.activities.SameTypesMonstersActivity
 import com.example.dofusbestiaire.activities.SingleMonsterActivity
+import com.example.dofusbestiaire.data.FavoriteMonstersClient
 import com.example.dofusbestiaire.models.Monsters
+import kotlinx.android.synthetic.main.card_layout.view.*
 
 class RecyclerViewCardCreator(private val monstersSet: List<Monsters>, val context:Context): RecyclerView.Adapter<RecyclerViewCardCreator.ViewHolder>()  {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -40,9 +42,21 @@ class RecyclerViewCardCreator(private val monstersSet: List<Monsters>, val conte
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         val image = monstersSet[position].imgUrl
+        val favoriteMonstersClient = FavoriteMonstersClient(context)
 
         Glide.with(context).load(image).into(viewHolder.imageView)
         viewHolder.textView.text = monstersSet[position].name
+
+        viewHolder.cardView.button.setOnClickListener{
+            val monsterId = monstersSet[position]._id
+            val favoriteMonsters = favoriteMonstersClient.getFavoriteMonsters()
+            if (!favoriteMonsters.contains( monsterId.toString())){
+                favoriteMonstersClient.saveFavoriteMonster(monsterId)
+            }
+            else{
+                favoriteMonstersClient.deleteFavoriteMonster(monsterId)
+            }
+        }
 
         viewHolder.cardView.setOnClickListener{
             val intent = Intent(context, SingleMonsterActivity::class.java)

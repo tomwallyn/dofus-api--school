@@ -2,42 +2,55 @@ package com.example.dofusbestiaire.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dofusbestiaire.R
+import com.example.dofusbestiaire.components.ListViewAdapter
 import com.example.dofusbestiaire.data.ApiClient
+import com.example.dofusbestiaire.data.FavoriteMonstersClient
 import com.example.dofusbestiaire.models.Monsters
 import com.example.dofusbestiaire.ui.RecyclerViewCardCreator
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class SameTypesMonstersActivity() : AppCompatActivity() {
 
+class FavoriteMonstersActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     lateinit var recyclerViewCardCreator: RecyclerViewCardCreator
+    lateinit var adapter: ListViewAdapter
     lateinit var bottomNavigationView: BottomNavigationView
-    val allMonsters = callApi()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = this.intent
-        val type = intent.getStringExtra("type")
-        setContentView(R.layout.family_layout)
-        val allMonstersInTheFamily = allMonsters.filter { monsters: Monsters -> monsters.type == type  }
-        recycler(allMonstersInTheFamily)
+
+        setContentView(R.layout.favorite_monsters_layout)
+        val allMonsters = callApi()
+        val favoriteMonsters = getFavoriteMonsters(allMonsters)
+        recycler(favoriteMonsters)
+        adapter = ListViewAdapter(this, allMonsters, recyclerViewCardCreator)
         bottomNavigationView = findViewById(R.id.activity_main_bottom_navigation)
         this.configureBottomView()
     }
 
-    fun recycler(allMonstersInTheFamily: List<Monsters>) {
+    private fun getFavoriteMonsters(allMonsters: List<Monsters>): List<Monsters>{
+        val favoriteMonsters = mutableListOf<Monsters>()
+        val favoriteMonstersClient = FavoriteMonstersClient(this)
+        favoriteMonstersClient.getFavoriteMonsters()
+        for (id in favoriteMonstersClient.getFavoriteMonsters()){
+         favoriteMonsters.add(allMonsters.filter { monsters -> monsters._id.toString() == id }[0])
+        }
+        return favoriteMonsters
+    }
+
+    fun recycler(allMonsters:List<Monsters>){
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewMonster)
-        recyclerViewCardCreator = RecyclerViewCardCreator(allMonstersInTheFamily, this)
+        recyclerViewCardCreator= RecyclerViewCardCreator(allMonsters,this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = recyclerViewCardCreator
     }
-
     fun callApi(): List<Monsters> {
         var content = listOf<Monsters>()
         runBlocking {
@@ -50,7 +63,7 @@ class SameTypesMonstersActivity() : AppCompatActivity() {
 //do something
                     } else {
                         Toast.makeText(
-                            this@SameTypesMonstersActivity,
+                            this@FavoriteMonstersActivity,
                             "Error Occurred: ${response.message()}",
                             Toast.LENGTH_LONG
                         ).show()
@@ -58,7 +71,7 @@ class SameTypesMonstersActivity() : AppCompatActivity() {
 
                 } catch (e: Exception) {
                     Toast.makeText(
-                        this@SameTypesMonstersActivity,
+                        this@FavoriteMonstersActivity,
                         "Error Occurred: ${e.message}",
                         Toast.LENGTH_LONG
                     ).show()
@@ -67,21 +80,6 @@ class SameTypesMonstersActivity() : AppCompatActivity() {
             return@runBlocking content
         }
         return content
-    }
-
-    fun getAllTypes(): MutableList<MutableList<String>> {
-        var allTypesAndImage: MutableList<MutableList<String>> = mutableListOf()
-        var allTypes: MutableList<String> = mutableListOf()
-        var allImage: MutableList<String> = mutableListOf()
-        for (monster in allMonsters) {
-            if (!allTypes.contains(monster.type)) {
-                allTypes.add(monster.type)
-                allImage.add(monster.imgUrl)
-            }
-        }
-        allTypesAndImage.add(allTypes)
-        allTypesAndImage.add(allImage)
-        return allTypesAndImage
     }
 
     fun configureBottomView() {
@@ -96,13 +94,13 @@ class SameTypesMonstersActivity() : AppCompatActivity() {
                 this.overridePendingTransition(0, 0);
                 this.finish()
             }
-            R.id.home -> {
-                val intent = Intent(this, AllMonstersActivity::class.java)
-                startActivity(intent)
-                this.overridePendingTransition(0, 0);
-                this.finish()
-            }
-            R.id.filters -> {
+           R.id.home -> {
+               val intent = Intent(this, FavoriteMonstersActivity::class.java)
+               startActivity(intent)
+               this.overridePendingTransition(0, 0);
+               this.finish()
+           }
+            R.id.filters ->{
                 val intent = Intent(this, FilteredMonstersActivity::class.java)
                 startActivity(intent)
                 this.overridePendingTransition(0, 0);
@@ -113,6 +111,19 @@ class SameTypesMonstersActivity() : AppCompatActivity() {
         }
         return true
     }
+
+    override fun onQueryTextSubmit(p0: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        val text = p0
+        if (text !=null){
+            recycler(adapter.returnFilteredList(text))
+        }
+        return true
+    }
+
 
 
 }

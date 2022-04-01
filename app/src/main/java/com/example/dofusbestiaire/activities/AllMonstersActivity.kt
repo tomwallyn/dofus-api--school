@@ -26,11 +26,6 @@ class AllMonstersActivity : AppCompatActivity(), SearchView.OnQueryTextListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//// example d'utilisation du FavoriteMonstersClient
-//        var favoriteMonstersClient = FavoriteMonstersClient(this)
-//        favoriteMonstersClient.saveFavoriteMonster(100)
-//        favoriteMonstersClient.deleteFavoriteMonster(100)
-//        var test = favoriteMonstersClient.getFavoriteMonsters()
 
         setContentView(R.layout.all_monsters_layout)
         val allMonsters = callApi()
@@ -85,6 +80,12 @@ class AllMonstersActivity : AppCompatActivity(), SearchView.OnQueryTextListener 
 
     fun updateMainFragment(integer: Int): Boolean {
         when (integer) {
+            R.id.favorite -> {
+                val intent = Intent(this, FavoriteMonstersActivity::class.java)
+                startActivity(intent)
+                this.overridePendingTransition(0, 0);
+                this.finish()
+            }
            R.id.home -> {
                val intent = Intent(this, AllMonstersActivity::class.java)
                startActivity(intent)
