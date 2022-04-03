@@ -31,6 +31,18 @@ class SingleMonsterActivity() : AppCompatActivity() {
         this.configureBottomView()
         val monsterNameView = findViewById<TextView>(R.id.monsterName)
         monsterNameView.text = monster.name
+
+        val monsterLevelView = findViewById<TextView>(R.id.monsterLevel)
+        monsterLevelView.text = monster.type
+
+        val monsterAreaView = findViewById<TextView>(R.id.monsterArea)
+        monsterAreaView.text = monster.areas.toString()
+
+        val monsterDropView = findViewById<TextView>(R.id.monsterDrop)
+        monsterDropView.text = monster.drops.toString()
+
+        val monsterAnkamaIdView = findViewById<TextView>(R.id.monsterAnkamaId)
+        monsterAnkamaIdView.text = monster.ankamaId.toString()
     }
 
     fun callApi(): List<Monsters> {
