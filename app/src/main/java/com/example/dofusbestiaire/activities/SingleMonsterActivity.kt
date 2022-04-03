@@ -7,15 +7,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.dofusbestiaire.R
 import com.example.dofusbestiaire.data.ApiClient
 import com.example.dofusbestiaire.models.Drop
 import com.example.dofusbestiaire.models.Monsters
-import com.example.dofusbestiaire.ui.RecyclerViewCardCreator
 import com.example.dofusbestiaire.ui.RecyclerViewDropImage
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_single_monster.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -40,23 +37,33 @@ class SingleMonsterActivity() : AppCompatActivity() {
         monsterLevelView.text = monster.type
 
         val monsterAreaView = findViewById<TextView>(R.id.monsterArea)
-        monsterAreaView.text = monster.areas.toString()
+        if(monster.areas != null && monster.areas.isNotEmpty()){
+            monsterAreaView.text = monster.areas.toString()
+        }
+        else{
+            monsterAreaView.text = ""
+        }
+
 
         val drops:List<Drop> = monster.drops
         val allDropsImage = mutableListOf<String>()
         for (drop in drops){
-            allDropsImage.add(drop.imgUrl)
+            if(drop.imgUrl != ""){
+                allDropsImage.add(drop.imgUrl)
+            }
         }
         recycler(allDropsImage)
         val monsterAnkamaIdView = findViewById<TextView>(R.id.monsterAnkamaId)
-        monsterAnkamaIdView.text = monster.ankamaId.toString()
+        monsterAnkamaIdView.text = monster.ankamaId?.toString()
     }
 
     fun recycler(allImages:List<String>){
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewDrop)
-        recyclerViewDropImage= RecyclerViewDropImage(allImages,this)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = recyclerViewDropImage
+        if (allImages.isNotEmpty()){
+            val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewDrop)
+            recyclerViewDropImage= RecyclerViewDropImage(allImages,this)
+            recyclerView.layoutManager =  LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+            recyclerView.adapter = recyclerViewDropImage
+        }
     }
 
     fun callApi(): List<Monsters> {

@@ -25,14 +25,11 @@ class RecyclerViewDropImage(private val imagesSet: List<String>, val context:Con
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.drop_image, viewGroup, false)
-
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-
         val image = imagesSet[position]
-
         Glide.with(context).load(image).into(viewHolder.imageView)
 
 
