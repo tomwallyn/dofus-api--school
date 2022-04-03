@@ -19,11 +19,11 @@
 
         <TextView
             android:id="@+id/monsterName"
-            android:layout_width="96dp"
-            android:layout_height="30dp"
+            android:layout_width="220dp"
+            android:layout_height="31dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="225dp"
+            android:layout_marginEnd="101dp"
             android:layout_marginBottom="0dp"
             android:text="TextView"
             android:textColor="@color/black" />
@@ -54,11 +54,11 @@
 
         <TextView
             android:id="@+id/monsterLevel"
-            android:layout_width="96dp"
-            android:layout_height="30dp"
+            android:layout_width="223dp"
+            android:layout_height="32dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="225dp"
+            android:layout_marginEnd="98dp"
             android:layout_marginBottom="0dp"
             android:text="TextView"
             android:textColor="@color/black" />
@@ -76,6 +76,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relativeLayout3"
         android:layout_width="378dp"
         android:layout_height="80dp"
         android:background="@drawable/list_background"
@@ -112,7 +113,7 @@
 
     <RelativeLayout
         android:layout_width="378dp"
-        android:layout_height="80dp"
+        android:layout_height="200dp"
         android:background="@drawable/list_background2"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -122,23 +123,34 @@
         app:layout_constraintTop_toTopOf="@+id/include"
         app:layout_constraintVertical_bias="0.377">
 
-        <TextView
-            android:id="@+id/monsterDrop"
-            android:layout_width="310dp"
-            android:layout_height="61dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="9dp"
-            android:text="TextView"
-            android:textColor="@color/black" />
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewDrop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="151dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="173dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </RelativeLayout>
+        </HorizontalScrollView>
 
         <TextView
             android:id="@+id/textViewDrop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
             android:layout_marginEnd="333dp"
             android:layout_marginBottom="51dp"
             android:text="Drop :"
@@ -152,10 +164,10 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/include"
-        app:layout_constraintVertical_bias="0.499">
+        app:layout_constraintVertical_bias="0.598">
 
         <TextView
             android:id="@+id/monsterAnkamaId"
@@ -185,5 +197,5 @@
         layout="@layout/bottom_navigation"
         android:layout_marginEnd="140dp"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="28dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
